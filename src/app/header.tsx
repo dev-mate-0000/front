@@ -7,6 +7,7 @@ export default function Header() {
         <Link href="/"><span>DEMEET</span></Link>
           <nav className="flex space-x-4">
             <Link href="/core" className="text-sm hover:opacity-70 font-light">Core</Link>
+            <Link href="/mypage" className="text-sm hover:opacity-70 font-light">MyPage</Link>
           </nav>
         </div>
       </header>

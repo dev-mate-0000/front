@@ -45,7 +45,6 @@ export default function Core() {
   useEffect(() => {
     GetMemerDetailApi(id)
     .then(data => {
-        console.log(data);
         setMemberDetail(data);
     })
     .catch(err => {
@@ -57,8 +56,11 @@ export default function Core() {
     <div className="min-h-screen text-white flex flex-col items-center justify-center p-8">
       <div className="w-full max-w-4xl grid grid-cols-2 gap-8">
         <div className="flex flex-col justify-center">
+
+          <h1 className="mt-2 text-white text-4xl font-extrabold mb-7">{memberDetail?.bio}</h1>
+
           <div className="flex items-end space-x-3">
-            <h1 className="text-5xl font-bold">{ memberDetail?.name }</h1>
+            <h1 className="text-3xl font-bold">{ memberDetail?.name }</h1>
             <span className="text-xm opacity-60">{ memberDetail?.job }</span>
             <Image
               className="hover:opacity-70 cursor-pointer"
@@ -77,9 +79,8 @@ export default function Core() {
           </div>
 
           <hr className="border-white opacity-20 my-3" />
+          <p className="text-white opacity-70">C, C++</p>
 
-          <p className="text-white opacity-70"></p>
-          <p className="mt-2 text-white opacity-70">{ memberDetail?.bio }</p>
         </div>
 
         <div className="relative flex flex-col items-end justify-center h-48 md:h-auto text-right">
