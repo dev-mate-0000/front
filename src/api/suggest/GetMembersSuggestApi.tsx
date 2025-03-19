@@ -1,5 +1,5 @@
+import { GetMembersSuggestApiResponse } from "@/type/MemberType";
 import axios from "axios";
-import { GetMembersSuggestApiResponse } from "./GetMembersSuggestType";
 
 export default async function GetMembersSuggestApi(): Promise<GetMembersSuggestApiResponse[]> {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/members/suggest`,

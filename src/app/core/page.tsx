@@ -1,10 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import GetMembersSuggestApi from "@/api/suggest/GetMembersSuggestApi";
-import { GetMembersSuggestApiResponse } from "@/api/suggest/GetMembersSuggestType";
 import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
 import GetNextMembersSuggestApi from "@/api/suggest/GetNextMembersSuggestApi";
-import { MemberDetailType } from "@/type/MemberType";
+import { GetMembersSuggestApiResponse, MemberDetailType } from "@/type/MemberType";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { JobType } from "@/type/MemberDetailTypes";
@@ -13,7 +13,7 @@ export default function Core() {
   const [members, setMembers] = useState<GetMembersSuggestApiResponse[]>([]);
   const [memberDetail, setMemberDetail] = useState<MemberDetailType>();
   const [index, setIndex] = useState(0);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState("");
   const prevIndex = useRef(index);
 
   useEffect(() => {
@@ -60,8 +60,8 @@ export default function Core() {
         <div className="flex flex-col justify-center">
 
           <Image
-            className="hover:opacity-70 cursor-pointer"
-            src="./github-mark-white.svg"
+            className="hover:opacity-70 cursor-pointer mb-3"
+            src="/github-mark-white.svg"
             alt="GitHub Logo"
             width={32}
             height={32}
@@ -74,10 +74,25 @@ export default function Core() {
             }}
           />
 
-          <h1 className="mt-2 text-white text-4xl font-extrabold mb-7">{memberDetail?.bio}</h1>
+          <h1
+            className="mt-2 text-white text-4xl font-extrabold mb-7"
+            style={{
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              textOverflow: "ellipsis"
+            }}
+          >
+            {memberDetail?.bio}
+          </h1>
 
           <div className="flex items-end space-x-3">
-            <h1 className="text-3xl font-bold">{ memberDetail?.name }</h1>
+            <h1 className="text-3xl font-bold">
+              <Link href={`/member-page/${memberDetail?.id}`}>
+                { memberDetail?.name }
+              </Link>
+            </h1>
             <span className="text-xm opacity-60">
               { JobType[memberDetail?.job as keyof typeof JobType] ?? "Unknown" }
             </span>
@@ -89,7 +104,7 @@ export default function Core() {
               ? memberDetail.languages
                   .map(lang => lang.language)
                   .join(", ")
-              : "사용하는 언어 없음"}
+              : "Unknown"}
           </p>
 
         </div>

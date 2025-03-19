@@ -1,5 +1,5 @@
 export type MemberDetailType = {
-    id: number,
+    id: string,
     name: string,
     githubUrl: string,
     job: string,
@@ -9,4 +9,14 @@ export type MemberDetailType = {
 
 export type Language = {
     language: string
+}
+
+export type GetMembersSuggestApiResponse = {
+    id: string
+    name: string
+};
+
+export type PatchMyInfoApiRequest = {
+    job: string,
+    bio: string
 }
