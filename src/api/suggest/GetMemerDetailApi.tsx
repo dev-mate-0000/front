@@ -1,15 +1,7 @@
+import { MemberDetailType } from "@/type/MemberType";
 import axios from "axios";
 
-export type GetMemerDetailApiResponse = {
-    id: number,
-    name: string,
-    githubUrl: string,
-    job: string,
-    bio: string,
-    languages: string[]
-}
-
-export default async function GetMemerDetailApi(id: number): Promise<GetMemerDetailApiResponse> {
+export default async function GetMemerDetailApi(id: number): Promise<MemberDetailType> {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/members/${id}`,
         { withCredentials: true }
     );

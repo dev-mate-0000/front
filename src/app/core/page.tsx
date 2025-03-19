@@ -2,14 +2,16 @@
 
 import GetMembersSuggestApi from "@/api/suggest/GetMembersSuggestApi";
 import { GetMembersSuggestApiResponse } from "@/api/suggest/GetMembersSuggestType";
-import GetMemerDetailApi, { GetMemerDetailApiResponse } from "@/api/suggest/GetMemerDetailApi";
+import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
 import GetNextMembersSuggestApi from "@/api/suggest/GetNextMembersSuggestApi";
+import { MemberDetailType } from "@/type/MemberType";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { JobType } from "@/type/MemberDetailTypes";
 
 export default function Core() {
   const [members, setMembers] = useState<GetMembersSuggestApiResponse[]>([]);
-  const [memberDetail, setMemberDetail] = useState<GetMemerDetailApiResponse>();
+  const [memberDetail, setMemberDetail] = useState<MemberDetailType>();
   const [index, setIndex] = useState(0);
   const [id, setId] = useState(0);
   const prevIndex = useRef(index);
@@ -57,29 +59,38 @@ export default function Core() {
       <div className="w-full max-w-4xl grid grid-cols-2 gap-8">
         <div className="flex flex-col justify-center">
 
+          <Image
+            className="hover:opacity-70 cursor-pointer"
+            src="./github-mark-white.svg"
+            alt="GitHub Logo"
+            width={32}
+            height={32}
+            onClick={() => {
+              if (memberDetail?.githubUrl) {
+                window.open(memberDetail.githubUrl, "_blank");
+              } else {
+                alert("GitHub URL이 존재하지 않습니다.");
+              }
+            }}
+          />
+
           <h1 className="mt-2 text-white text-4xl font-extrabold mb-7">{memberDetail?.bio}</h1>
 
           <div className="flex items-end space-x-3">
             <h1 className="text-3xl font-bold">{ memberDetail?.name }</h1>
-            <span className="text-xm opacity-60">{ memberDetail?.job }</span>
-            <Image
-              className="hover:opacity-70 cursor-pointer"
-              src="./github-mark-white.svg"
-              alt="GitHub Logo"
-              width={32}
-              height={32}
-              onClick={() => {
-                if (memberDetail?.githubUrl) {
-                  window.open(memberDetail.githubUrl, "_blank");
-                } else {
-                  alert("GitHub URL이 존재하지 않습니다.");
-                }
-              }}
-            />
+            <span className="text-xm opacity-60">
+              { JobType[memberDetail?.job as keyof typeof JobType] ?? "Unknown" }
+            </span>
           </div>
 
           <hr className="border-white opacity-20 my-3" />
-          <p className="text-white opacity-70">C, C++</p>
+          <p className="text-white opacity-70">
+            {memberDetail?.languages?.length 
+              ? memberDetail.languages
+                  .map(lang => lang.language)
+                  .join(", ")
+              : "사용하는 언어 없음"}
+          </p>
 
         </div>
 
