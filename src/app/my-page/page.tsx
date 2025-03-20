@@ -92,6 +92,7 @@ export default function Mypage() {
             {...register("bio")}
             className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
             rows={3}
+            placeholder="자기소개를 입력해주세요."
           />
 
 
@@ -103,6 +104,9 @@ export default function Mypage() {
               {...register("job")}
               defaultValue={member?.job}
             >
+              <option value="" disabled hidden>
+                Select a job...
+              </option>
               {Object.entries(JobType).map(([key, value]) => (
                 <option key={key} value={key}>
                   {value}
