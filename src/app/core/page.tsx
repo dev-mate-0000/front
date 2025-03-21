@@ -8,12 +8,15 @@ import { GetMembersSuggestApiResponse, MemberDetailType } from "@/type/MemberTyp
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { JobType } from "@/type/MemberDetailTypes";
+import {LoginGithub} from "@/config/GithubLogin";
+import LoadingPage from "@/config/LoadingPage";
 
 export default function Core() {
   const [members, setMembers] = useState<GetMembersSuggestApiResponse[]>([]);
   const [memberDetail, setMemberDetail] = useState<MemberDetailType>();
   const [index, setIndex] = useState(0);
   const [id, setId] = useState("");
+  const [loading, setLoading] = useState(true);
   const prevIndex = useRef(index);
 
   useEffect(() => {
@@ -21,10 +24,13 @@ export default function Core() {
       GetMembersSuggestApi()
       .then((data) => {
         setId(data[0].id);
+        setLoading(false);
         setMembers(data);
       })
       .catch((err) => {
-        console.log(err);
+          if(err?.response?.status === 403) {
+              LoginGithub();
+          }
       });
       return;
     }
@@ -38,7 +44,9 @@ export default function Core() {
     })
     .catch(err => {
         setIndex(prevIndex.current);
-        console.log(err);
+        if(err?.response?.status === 403) {
+            LoginGithub();
+        }
     });
 
     prevIndex.current = index;
@@ -50,7 +58,9 @@ export default function Core() {
         setMemberDetail(data);
     })
     .catch(err => {
-        console.log(err)
+        if(err?.response?.status === 403) {
+            LoginGithub();
+        }
     })
   }, [id])
 
@@ -58,7 +68,6 @@ export default function Core() {
     <div className="min-h-screen text-white flex flex-col items-center justify-center p-8">
       <div className="w-full max-w-4xl grid grid-cols-2 gap-8">
         <div className="flex flex-col justify-center">
-
           <Image
             className="hover:opacity-70 cursor-pointer mb-3"
             src="/github-mark-white.svg"
@@ -100,7 +109,7 @@ export default function Core() {
 
           <hr className="border-white opacity-20 my-3" />
           <p className="text-white opacity-70">
-            {memberDetail?.languages?.length 
+            {memberDetail?.languages?.length
               ? memberDetail.languages
                   .map(lang => lang.language)
                   .join(", ")

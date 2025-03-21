@@ -13,7 +13,7 @@ export default function MemberPage() {
   const [member, setMember] = useState<MemberDetailType>();
 
   useEffect(() => {
-    if (id) { // id가 존재할 경우에만 API 호출
+    if (id) {
       const memberId = Array.isArray(id) ? id[0] : id;
       GetMemerDetailApi(memberId)
         .then((data) => {

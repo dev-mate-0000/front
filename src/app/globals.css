@@ -44,3 +44,42 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);  /* 위로 튀는 효과 */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.letter-animation {
+  display: inline-block;
+  animation: bounce 0.6s ease-in-out infinite; /* 기본 애니메이션 */
+}
+
+.letter-0 {
+  animation-delay: 0s;
+}
+.letter-1 {
+  animation-delay: 0.1s;
+}
+.letter-2 {
+  animation-delay: 0.2s;
+}
+.letter-3 {
+  animation-delay: 0.3s;
+}
+.letter-4 {
+  animation-delay: 0.4s;
+}
+.letter-5 {
+  animation-delay: 0.5s;
+}
+
