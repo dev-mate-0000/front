@@ -9,6 +9,7 @@ export default function Login() {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
+            router.refresh();
             router.back();
         }
     }, [router]);
