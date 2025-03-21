@@ -6,11 +6,7 @@ export default function Home() {
     return (
         <div className="flex flex-col justify-center items-center h-screen">
             <h1 className="large-text font-extrabold text-white relative text-shadow">
-                {'DEMEET'.split('').map((letter, index) => (
-                    <span key={index} className={`letter-${index} typing-effect`}>
-                        {letter}
-                    </span>
-                ))}
+                DEMEET
             </h1>
             <button
                 className="text-white opacity-80 mb-10 cursor-pointer hover:opacity-100 hover:scale-110 transition-transform duration-300 ease-in-out"
