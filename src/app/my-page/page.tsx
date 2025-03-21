@@ -10,9 +10,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 enum EditStatus {
-  GOOD = "/status/good.png",
-  EDIT = "/status/edit.png",
-  ERR = "/status/err.png"
+  GOOD = "/good.svg",
+  EDIT = "/edit.svg",
+  ERR = "/err.svg"
 }
 export default function Mypage() {
   const [member, setMember] = useState<MemberDetailType>();
