@@ -8,7 +8,7 @@ import { MemberDetailType, PatchMyInfoApiRequest } from "@/type/MemberType";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import LoadingPage from "@/config/LoadingPage";
+import {useRouter} from "next/navigation";
 
 enum EditStatus {
   GOOD = "/good.svg",
@@ -19,6 +19,7 @@ export default function MyPage() {
   const [member, setMember] = useState<MemberDetailType>();
   const { register, handleSubmit, setValue, watch } = useForm<PatchMyInfoApiRequest>();
   const [editStatus, setEditStatus] = useState<EditStatus>(EditStatus.GOOD);
+    const router = useRouter();
 
   useEffect(() => {
     GetMyInfoApi()
@@ -33,7 +34,7 @@ export default function MyPage() {
         }
         setEditStatus(EditStatus.ERR);
       });
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const bio = watch("bio");
