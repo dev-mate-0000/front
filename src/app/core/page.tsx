@@ -9,14 +9,12 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { JobType } from "@/type/MemberDetailTypes";
 import {LoginGithub} from "@/config/GithubLogin";
-import LoadingPage from "@/config/LoadingPage";
 
 export default function Core() {
   const [members, setMembers] = useState<GetMembersSuggestApiResponse[]>([]);
   const [memberDetail, setMemberDetail] = useState<MemberDetailType>();
   const [index, setIndex] = useState(0);
   const [id, setId] = useState("");
-  const [loading, setLoading] = useState(true);
   const prevIndex = useRef(index);
 
   useEffect(() => {
@@ -24,7 +22,6 @@ export default function Core() {
       GetMembersSuggestApi()
       .then((data) => {
         setId(data[0].id);
-        setLoading(false);
         setMembers(data);
       })
       .catch((err) => {
