@@ -88,12 +88,12 @@ export default function Core() {
               }}
             />
 
-<textarea
-          className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
-          rows={3}
-          value={memberDetail?.bio || ""}
-          readOnly
-        />
+            <textarea
+              className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
+              rows={3}
+              value={memberDetail?.bio || ""}
+              readOnly
+            />
 
             <div className="flex items-end space-x-3">
               <h1 className="text-3xl font-bold hover:opacity-70">
