@@ -1,8 +1,7 @@
 "use client";
 
 import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
-import { JobType } from "@/type/MemberDetailTypes";
-import { MemberDetailType } from "@/type/MemberType";
+import {JobType, MemberDetailType} from "@/type/MemberType";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -55,13 +54,13 @@ export default function MemberPage() {
 
         <div className="flex items-end space-x-3">
           <h1 className="text-3xl font-bold">{member?.name}</h1>
-          
-          <span className="text-xm opacity-60">
-            { JobType[member?.job as keyof typeof JobType] ?? "Unknown" }
+
+          <span className="text-sm opacity-60">
+            {Object.values(JobType).includes(member?.job as JobType) ? member?.job : "Unknown"}
           </span>
         </div>
 
-        <hr className="border-white opacity-20 my-3" />
+        <hr className="border-white opacity-20 my-3"/>
         <p className="text-white opacity-70">
           {member?.languages?.length
             ? member.languages.map((lang) => lang.language).join(", ")
