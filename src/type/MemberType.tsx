@@ -1,45 +1,44 @@
 export enum JobType {
-    BACKEND = "Backend Developer",
-    FRONTEND = "Frontend Developer",
-    FULLSTACK = "Fullstack Developer"
+  BACKEND = "Backend Developer",
+  FRONTEND = "Frontend Developer",
+  FULLSTACK = "Fullstack Developer",
 }
 
-
 export enum ShowStatus {
-    PUBLIC = "Public",
-    PRIVATE = "Private"
+  PUBLIC = "Public",
+  PRIVATE = "Private",
 }
 
 export type MemberDetailType = {
-    id: string,
-    name: string,
-    githubUrl: string,
-    job: JobType,
-    bio: string,
-    languages: Language[]
-}
+  id: string;
+  name: string;
+  githubUrl: string;
+  job: JobType;
+  bio: string;
+  languages: Language[];
+};
 
 export type MemberDetailSelfType = {
-    id: string,
-    name: string,
-    githubUrl: string,
-    job: JobType,
-    bio: string,
-    status: ShowStatus,
-    languages: Language[]
-}
+  id: string;
+  name: string;
+  githubUrl: string;
+  job: JobType;
+  bio: string;
+  status: ShowStatus;
+  languages: Language[];
+};
 
 export type Language = {
-    language: string
-}
+  language: string;
+};
 
 export type GetMembersSuggestApiResponse = {
-    id: string
-    name: string
+  id: string;
+  name: string;
 };
 
 export type PatchMyInfoApiRequest = {
-    job: JobType,
-    bio: string,
-    status: ShowStatus
-}
+  job: JobType;
+  bio: string;
+  status: ShowStatus;
+};

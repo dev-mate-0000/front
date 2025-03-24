@@ -1,14 +1,14 @@
 "use client";
 
 import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
-import {JobType, MemberDetailType} from "@/type/MemberType";
+import { JobType, MemberDetailType } from "@/type/MemberType";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function MemberPage() {
   const { id } = useParams();
-  
+
   const [member, setMember] = useState<MemberDetailType>();
 
   useEffect(() => {
@@ -48,7 +48,11 @@ export default function MemberPage() {
           className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
           rows={3}
           value={member?.bio || ""}
-          onChange={(e) => setMember((prev) => prev ? { ...prev, bio: e.target.value } : prev)}
+          onChange={(e) =>
+            setMember((prev) =>
+              prev ? { ...prev, bio: e.target.value } : prev
+            )
+          }
           readOnly
         />
 
@@ -56,11 +60,13 @@ export default function MemberPage() {
           <h1 className="text-3xl font-bold">{member?.name}</h1>
 
           <span className="text-sm opacity-60">
-            {Object.values(JobType).includes(member?.job as JobType) ? member?.job : "Unknown"}
+            {Object.values(JobType).includes(member?.job as JobType)
+              ? member?.job
+              : "Unknown"}
           </span>
         </div>
 
-        <hr className="border-white opacity-20 my-3"/>
+        <hr className="border-white opacity-20 my-3" />
         <p className="text-white opacity-70">
           {member?.languages?.length
             ? member.languages.map((lang) => lang.language).join(", ")

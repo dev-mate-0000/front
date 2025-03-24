@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import LoginPage from "@/config/LoginPage";
 
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center justify-center p-8">
-      { LoginPage() }
+      {LoginPage()}
     </div>
   );
 }
