@@ -88,21 +88,20 @@ export default function Core() {
               }}
             />
 
-<h1
-  className="mt-2 text-white text-4xl font-extrabold mb-7"
-  style={{
-    overflow: "hidden",
-    display: "-webkit-box",
-    WebkitLineClamp: 3,
-    WebkitBoxOrient: "vertical",
-    textOverflow: "ellipsis",
-    height: "4.5rem", // 3줄 높이 고정
-    lineHeight: "1.5rem", // 줄 간격 조절 (16px 기준)
-  }}
->
-  {memberDetail?.bio}
-</h1>
-
+            <h1
+              className="mt-2 text-white text-4xl font-extrabold mb-7"
+              style={{
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
+                textOverflow: "ellipsis",
+                height: "4.5rem", // 3줄 높이 고정
+                lineHeight: "1.5rem", // 줄 간격 조절 (16px 기준)
+              }}
+            >
+              {memberDetail?.bio}
+            </h1>
 
             <div className="flex items-end space-x-3">
               <h1 className="text-3xl font-bold hover:opacity-70">
