@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 export default function MemberPage() {
   const { id } = useParams();
-
   const [member, setMember] = useState<MemberDetailType>();
 
   useEffect(() => {
@@ -48,11 +47,6 @@ export default function MemberPage() {
           className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
           rows={3}
           value={member?.bio || ""}
-          onChange={(e) =>
-            setMember((prev) =>
-              prev ? { ...prev, bio: e.target.value } : prev
-            )
-          }
           readOnly
         />
 

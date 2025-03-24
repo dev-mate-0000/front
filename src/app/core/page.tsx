@@ -88,20 +88,12 @@ export default function Core() {
               }}
             />
 
-            <h1
-              className="mt-2 text-white text-4xl font-extrabold mb-7"
-              style={{
-                overflow: "hidden",
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                textOverflow: "ellipsis",
-                height: "4.5rem", // 3줄 높이 고정
-                lineHeight: "1.5rem", // 줄 간격 조절 (16px 기준)
-              }}
-            >
-              {memberDetail?.bio}
-            </h1>
+<textarea
+          className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
+          rows={3}
+          value={memberDetail?.bio || ""}
+          readOnly
+        />
 
             <div className="flex items-end space-x-3">
               <h1 className="text-3xl font-bold hover:opacity-70">
@@ -127,7 +119,7 @@ export default function Core() {
           </div>
 
           <div className="relative flex flex-col items-end justify-center h-48 md:h-auto text-right">
-            <div className="absolute top-[-120px] flex flex-col items-end">
+            <div className="absolute top-[-60px] flex flex-col items-end">
               {members.slice(Math.max(0, index - 2), index).map((member, i) => (
                 <span
                   className={`sublarge-text stroke-text font-extrabold opacity-40 cursor-pointer transition-opacity hover:opacity-70 ${
@@ -156,7 +148,7 @@ export default function Core() {
                 : members[index]?.name}
             </h1>
 
-            <div className="absolute bottom-[-120px] flex flex-col items-end">
+            <div className="absolute bottom-[-60px] flex flex-col items-end">
               {members.slice(index + 1, index + 3).map((member, i) => (
                 <span
                   className={`sublarge-text stroke-text font-extrabold opacity-40 cursor-pointer transition-opacity hover:opacity-70 ${
