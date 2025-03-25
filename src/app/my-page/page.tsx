@@ -2,7 +2,6 @@
 
 import GetMyInfoApi from "@/api/member/GetMyInfoApi";
 import PatchMemberApi from "@/api/member/PatchMyInfoApi";
-import { LoginGithub } from "@/config/GithubLogin";
 import {
   JobType,
   MemberDetailSelfType,
@@ -33,10 +32,7 @@ export default function MyPage() {
         setValue("status", data.status);
         setMember(data);
       })
-      .catch((err) => {
-        if (err?.response?.status === 403) {
-          LoginGithub();
-        }
+      .catch(() => {
         setEditStatus(EditStatus.ERR);
       });
   }, []);
@@ -74,14 +70,18 @@ export default function MyPage() {
         });
         setEditStatus(EditStatus.GOOD);
       })
-      .catch((err) => {
+      .catch(() => {
         setEditStatus(EditStatus.ERR);
-        console.log(err);
       });
   };
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center justify-center p-8">
+      {!member ? (
+        <div className="text-xl font-bold text-gray-400">
+          데이터가 없습니다.
+        </div>
+      ) : (
       <div className="flex flex-col justify-center w-full max-w-4xl">
         <form onSubmit={handleSubmit(onSubmit)}>
           <select
@@ -159,6 +159,7 @@ export default function MyPage() {
           </button>
         </form>
       </div>
+      )}
     </div>
   );
 }

@@ -11,7 +11,6 @@ import {
 } from "@/type/MemberType";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { LoginGithub } from "@/config/GithubLogin";
 
 export default function Core() {
   const [members, setMembers] = useState<GetMembersSuggestApiResponse[]>([]);
@@ -27,11 +26,6 @@ export default function Core() {
           setId(data[0].id);
           setMembers(data);
         })
-        .catch((err) => {
-          if (err?.response?.status === 403) {
-            LoginGithub();
-          }
-        });
       return;
     }
 
@@ -42,11 +36,8 @@ export default function Core() {
       .then((data) => {
         setMembers((prev) => [...prev, data]);
       })
-      .catch((err) => {
+      .catch(() => {
         setIndex(prevIndex.current);
-        if (err?.response?.status === 403) {
-          LoginGithub();
-        }
       });
 
     prevIndex.current = index;
@@ -57,11 +48,6 @@ export default function Core() {
       .then((data) => {
         setMemberDetail(data);
       })
-      .catch((err) => {
-        if (err?.response?.status === 403) {
-          LoginGithub();
-        }
-      });
   }, [id]);
 
   return (

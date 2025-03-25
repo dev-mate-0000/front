@@ -17,9 +17,6 @@ export default function MemberPage() {
         .then((data) => {
           setMember(data);
         })
-        .catch((err) => {
-          console.log(err);
-        });
     }
   }, [id]);
 

@@ -2,10 +2,9 @@ import LoginGithubUrlApi from "@/api/login/LoginGithubUrlApi";
 
 export const LoginGithub = () => {
   LoginGithubUrlApi()
-    .then((rtn) => {
-      window.location.href = rtn;
+    .then((response) => {
+      if (response.status === 200 && response.data?.url) {
+        window.location.href = response.data.url;
+      }
     })
-    .catch((err) => {
-      console.log(err);
-    });
 };
