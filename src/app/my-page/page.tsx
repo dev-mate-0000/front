@@ -2,12 +2,9 @@
 
 import GetMyInfoApi from "@/api/member/GetMyInfoApi";
 import PatchMemberApi from "@/api/member/PatchMyInfoApi";
-import {
-  JOBTYPE,
-  MemberDetailSelfType,
-  PatchMyInfoApiRequest,
-  SHOWSTATUS
-} from "@/type/MemberType";
+import { MemberDetailSelfType } from "@/type/GetMemberType";
+import { JOBTYPE, SHOWSTATUS } from "@/type/MemberEnum";
+import { PatchMyInfoApiRequest } from "@/type/GiveMemberType";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

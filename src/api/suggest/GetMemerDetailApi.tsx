@@ -1,4 +1,4 @@
-import { MemberDetailType } from "@/type/MemberType";
+import { MemberDetailType } from "@/type/GetMemberType";
 import axios from "axios";
 
 export default async function GetMemerDetailApi(

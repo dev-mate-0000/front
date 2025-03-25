@@ -1,4 +1,4 @@
-import { GetMembersSuggestApiResponse } from "@/type/MemberType";
+import { GetMembersSuggestApiResponse } from "@/type/GetMemberType";
 import axios from "axios";
 
 export default async function GetNextMembersSuggestApi(

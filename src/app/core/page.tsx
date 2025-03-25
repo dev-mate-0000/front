@@ -4,13 +4,10 @@ import Link from "next/link";
 import GetMembersSuggestApi from "@/api/suggest/GetMembersSuggestApi";
 import GetMemberDetailApi from "@/api/suggest/GetMemerDetailApi";
 import GetNextMembersSuggestApi from "@/api/suggest/GetNextMembersSuggestApi";
-import {
-  GetMembersSuggestApiResponse,
-  JOBTYPE,
-  MemberDetailType,
-} from "@/type/MemberType";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { GetMembersSuggestApiResponse, MemberDetailType } from "@/type/GetMemberType";
+import { JOBTYPE } from "@/type/MemberEnum";
 
 export default function Core() {
   const [members, setMembers] = useState<GetMembersSuggestApiResponse[]>([]);
@@ -77,6 +74,7 @@ export default function Core() {
               rows={3}
               value={memberDetail?.bio || ""}
               readOnly
+              style={{ resize: 'none' }}
             />
 
             <div className="flex items-end space-x-3">

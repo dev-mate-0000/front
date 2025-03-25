@@ -1,4 +1,4 @@
-import { GetLoginUrlType } from "@/type/LoginType";
+import { GetLoginUrlType } from "@/type/GetLoginType";
 import axios, { AxiosResponse } from "axios";
 
 export default async function LoginGithubUrlApi(): Promise<AxiosResponse<GetLoginUrlType>> {

@@ -1,4 +1,4 @@
-import { MemberDetailSelfType } from "@/type/MemberType";
+import { MemberDetailSelfType } from "@/type/GetMemberType";
 import axios from "axios";
 
 export default async function GetMyInfoApi(): Promise<MemberDetailSelfType> {

@@ -1,7 +1,7 @@
 "use client";
 
 import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
-import { MemberDetailType } from "@/type/MemberType";
+import { MemberDetailType } from "@/type/GetMemberType";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";

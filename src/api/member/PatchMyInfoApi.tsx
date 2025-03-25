@@ -1,4 +1,4 @@
-import { PatchMyInfoApiRequest } from "@/type/MemberType";
+import { PatchMyInfoApiRequest } from "@/type/GiveMemberType";
 import axios from "axios";
 
 export default async function PatchMyInfoApi(
