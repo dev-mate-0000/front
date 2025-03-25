@@ -73,7 +73,7 @@ export default function Core() {
             </div>
 
             <textarea
-              className="mt-4 text-white text-2xl font-extrabold w-full bg-transparent border-none focus:outline-none overflow-y-auto resize-none scrollbar-hide"
+              className={`mt-4 text-white text-2xl font-extrabold w-full bg-transparent border-none focus:outline-none overflow-y-auto resize-none scrollbar-hide ${!member?.bio ? "opacity-70" : ""}`}
               rows={4}
               value={member?.bio || "소개가 없습니다."}
               readOnly
