@@ -6,7 +6,7 @@ import GetMemberDetailApi from "@/api/suggest/GetMemerDetailApi";
 import GetNextMembersSuggestApi from "@/api/suggest/GetNextMembersSuggestApi";
 import {
   GetMembersSuggestApiResponse,
-  JobType,
+  JOBTYPE,
   MemberDetailType,
 } from "@/type/MemberType";
 import Image from "next/image";
@@ -21,11 +21,10 @@ export default function Core() {
 
   useEffect(() => {
     if (members.length === 0) {
-      GetMembersSuggestApi()
-        .then((data) => {
-          setId(data[0].id);
-          setMembers(data);
-        })
+      GetMembersSuggestApi().then((data) => {
+        setId(data[0].id);
+        setMembers(data);
+      });
       return;
     }
 
@@ -44,10 +43,9 @@ export default function Core() {
   }, [index]);
 
   useEffect(() => {
-    GetMemberDetailApi(id)
-      .then((data) => {
-        setMemberDetail(data);
-      })
+    GetMemberDetailApi(id).then((data) => {
+      setMemberDetail(data);
+    });
   }, [id]);
 
   return (
@@ -90,9 +88,9 @@ export default function Core() {
                 </Link>
               </h1>
               <span className="text-sm opacity-60">
-                {Object.values(JobType).includes(memberDetail?.job as JobType)
-                  ? memberDetail?.job
-                  : "Unknown"}
+                {
+                  memberDetail?.job && JOBTYPE[memberDetail.job] ? JOBTYPE[memberDetail.job] : "Unknown"
+                }
               </span>
             </div>
 

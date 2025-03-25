@@ -1,19 +1,19 @@
-export enum JobType {
-  BACKEND = "Backend Developer",
-  FRONTEND = "Frontend Developer",
-  FULLSTACK = "Fullstack Developer",
+export const JOBTYPE = {
+  BACKEND: "Backend Developer",
+  FRONTEND: "Frontend Developer",
+  FULLSTACK: "Fullstack Developer",
 }
 
-export enum ShowStatus {
-  PUBLIC = "Public",
-  PRIVATE = "Private",
+export const SHOWSTATUS = {
+  PUBLIC: "Public",
+  PRIVATE: "Private",
 }
 
 export type MemberDetailType = {
   id: string;
   name: string;
   githubUrl: string;
-  job: JobType;
+  job: keyof typeof JOBTYPE;
   bio: string;
   languages: Language[];
 };
@@ -22,9 +22,9 @@ export type MemberDetailSelfType = {
   id: string;
   name: string;
   githubUrl: string;
-  job: JobType;
+  job: keyof typeof JOBTYPE;
   bio: string;
-  status: ShowStatus;
+  status: keyof typeof SHOWSTATUS;
   languages: Language[];
 };
 
@@ -38,7 +38,7 @@ export type GetMembersSuggestApiResponse = {
 };
 
 export type PatchMyInfoApiRequest = {
-  job: JobType;
+  job: keyof typeof JOBTYPE;
   bio: string;
-  status: ShowStatus;
+  status: keyof typeof SHOWSTATUS;
 };

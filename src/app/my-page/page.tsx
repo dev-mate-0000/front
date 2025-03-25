@@ -3,10 +3,10 @@
 import GetMyInfoApi from "@/api/member/GetMyInfoApi";
 import PatchMemberApi from "@/api/member/PatchMyInfoApi";
 import {
-  JobType,
+  JOBTYPE,
   MemberDetailSelfType,
   PatchMyInfoApiRequest,
-  ShowStatus,
+  SHOWSTATUS
 } from "@/type/MemberType";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -89,7 +89,7 @@ export default function MyPage() {
             {...register("status")}
             defaultValue={member?.status}
           >
-            {Object.entries(ShowStatus).map(([key, value]) => (
+            {Object.entries(SHOWSTATUS).map(([key, value]) => (
               <option key={key} value={key}>
                 {value}
               </option>
@@ -136,7 +136,7 @@ export default function MyPage() {
               defaultValue={member?.job || ""}
             >
               <option value="">Select a job...</option>
-              {Object.entries(JobType).map(([key, value]) => (
+              {Object.entries(JOBTYPE).map(([key, value]) => (
                 <option key={key} value={key}>
                   {value}
                 </option>

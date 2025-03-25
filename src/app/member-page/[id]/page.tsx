@@ -1,7 +1,7 @@
 "use client";
 
 import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
-import { JobType, MemberDetailType } from "@/type/MemberType";
+import { MemberDetailType } from "@/type/MemberType";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -55,9 +55,7 @@ export default function MemberPage() {
             <h1 className="text-3xl font-bold">{member?.name}</h1>
 
             <span className="text-sm opacity-60">
-              {Object.values(JobType).includes(member?.job as JobType)
-                ? member?.job
-                : "Unknown"}
+              {member.job}
             </span>
           </div>
 
