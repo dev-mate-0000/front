@@ -21,6 +21,7 @@ export type MemberDetailType = {
   
   export type Language = {
     language: string;
+    codes: number;
   };
   
   export type GetMembersSuggestApiResponse = {

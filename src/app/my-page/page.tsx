@@ -17,8 +17,7 @@ enum EditStatus {
 
 export default function MyPage() {
   const [member, setMember] = useState<MemberDetailSelfType | undefined>();
-  const { register, handleSubmit, setValue, watch } =
-    useForm<PatchMyInfoApiRequest>();
+  const { register, handleSubmit, setValue, watch } = useForm<PatchMyInfoApiRequest>();
   const [editStatus, setEditStatus] = useState<EditStatus>(EditStatus.GOOD);
 
   useEffect(() => {
@@ -73,89 +72,108 @@ export default function MyPage() {
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center justify-center p-8">
+    <div className="flex flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-gray-700 to-black">
       {!member ? (
-        <div className="text-xl font-bold text-gray-400">
-          데이터가 없습니다.
-        </div>
+        <div className="text-xl font-bold text-gray-500">데이터가 없습니다.</div>
       ) : (
-      <div className="flex flex-col justify-center w-full max-w-4xl">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <select
-            className="bg-gray-800 text-white px-2 py-2 rounded border border-gray-600 w-48 mb-5"
-            {...register("status")}
-            defaultValue={member?.status}
-          >
-            {Object.entries(SHOWSTATUS).map(([key, value]) => (
-              <option key={key} value={key}>
-                {value}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col justify-center w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex justify-between items-center">
+              <select
+                className="bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 w-48"
+                {...register("status")}
+                defaultValue={member?.status}
+              >
+                {Object.entries(SHOWSTATUS).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
 
-          <div className="flex space-x-3">
-            <Image
-              className="hover:opacity-70 cursor-pointer"
-              src="/github-mark-white.svg"
-              alt="GitHub Logo"
-              width={32}
-              height={32}
-              onClick={() => {
-                if (member?.githubUrl) {
-                  window.open(member?.githubUrl, "_blank");
-                } else {
-                  alert("GitHub URL이 존재하지 않습니다.");
-                }
-              }}
+              <div className="flex space-x-3">
+                <Image
+                  className="cursor-pointer hover:opacity-80"
+                  src="/github-mark-white.svg"
+                  alt="GitHub Logo"
+                  width={32}
+                  height={32}
+                  onClick={() => {
+                    if (member?.githubUrl) {
+                      window.open(member?.githubUrl, "_blank");
+                    } else {
+                      alert("GitHub URL이 존재하지 않습니다.");
+                    }
+                  }}
+                />
+                <Image
+                  className="cursor-pointer hover:opacity-80"
+                  src={editStatus}
+                  alt="Status Logo"
+                  width={32}
+                  height={32}
+                />
+              </div>
+            </div>
+
+            <textarea
+              {...register("bio")}
+              className="mt-5 text-white text-lg font-semibold bg-transparent border-none focus:outline-none w-full p-4 rounded-lg resize-none h-32"
+              placeholder="자기소개를 입력해주세요."
+              rows={4}
             />
-            <Image
-              className="ml-3"
-              src={editStatus}
-              alt="Status Logo"
-              width={32}
-              height={32}
-            />
-          </div>
 
-          <textarea
-            {...register("bio")}
-            className="mt-2 text-white text-4xl font-extrabold mt-7 mb-7 overflow-y-auto w-full bg-transparent border-none focus:outline-none scrollbar-hide"
-            rows={3}
-            placeholder="자기소개를 입력해주세요."
-          />
+            <div className="flex justify-between items-center mt-4">
+              <h1 className="text-3xl font-bold">{member?.name}</h1>
+              <select
+                className="bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600"
+                {...register("job")}
+                defaultValue={member?.job || ""}
+              >
+                <option value="">직업 선택...</option>
+                {Object.entries(JOBTYPE).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div className="flex items-end space-x-3">
-            <h1 className="text-3xl font-bold">{member?.name}</h1>
+            <hr className="border-white opacity-30 my-6" />
 
-            <select
-              className="bg-gray-800 text-white px-2 py-1 rounded border border-gray-600"
-              {...register("job")}
-              defaultValue={member?.job || ""}
+            {member?.languages?.length ? (
+              <table className="w-full border-collapse text-white text-left text-sm">
+                <thead>
+                  <tr className="bg-gray-700 text-gray-200">
+                    <th className="px-4 py-3 border border-gray-600 rounded-tl-lg">Language</th>
+                    <th className="px-4 py-3 border border-gray-600 rounded-tr-lg">Codes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {member.languages.map((lang, index) => (
+                    <tr key={index} className="transition">
+                      <td className="px-4 py-3 border border-gray-600">
+                        <strong>{lang.language}</strong>
+                      </td>
+                      <td className="px-4 py-3 border border-gray-600">
+                        <p className="text-gray-400">{lang.codes.toLocaleString()}</p>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="text-gray-400">Unknown</p>
+            )}
+
+            <button
+              type="submit"
+              className="mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 transition duration-300 border border-gray-600"
             >
-              <option value="">Select a job...</option>
-              {Object.entries(JOBTYPE).map(([key, value]) => (
-                <option key={key} value={key}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <hr className="border-white opacity-20 my-3" />
-          <p className="text-white opacity-70">
-            {member?.languages?.length
-              ? member.languages.map((lang) => lang.language).join(", ")
-              : "Unknown"}
-          </p>
-
-          <button
-            type="submit"
-            className="mt-5 px-6 py-2 bg-gray-900 text-white font-medium rounded-lg shadow-lg hover:bg-gray-700 transition-all duration-300 border border-gray-600"
-          >
-            저장하기
-          </button>
-        </form>
-      </div>
+              저장하기
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );

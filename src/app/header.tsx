@@ -2,16 +2,27 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 w-full shadow-md text-xl font-bold text-white p-4">
-      <div className="flex justify-between items-center max-w-4xl mx-auto">
+    <header className="fixed top-0 left-0 right-0 w-full bg-gray-800 shadow-md text-white py-2">
+      <div className="flex justify-between items-center max-w-6xl mx-auto px-4">
+        {/* Logo */}
         <Link href="/">
-          <span>DEMEET</span>
+          <span className="text-2xl font-semibold tracking-wide hover:opacity-80 cursor-pointer">
+            DEMEET
+          </span>
         </Link>
-        <nav className="flex space-x-4">
-          <Link href="/core" className="text-sm hover:opacity-70 font-light">
+
+        {/* Navigation links */}
+        <nav className="flex space-x-6">
+          <Link
+            href="/core"
+            className="text-base hover:text-yellow-400 transition duration-300"
+          >
             Core
           </Link>
-          <Link href="/my-page" className="text-sm hover:opacity-70 font-light">
+          <Link
+            href="/my-page"
+            className="text-base hover:text-yellow-400 transition duration-300"
+          >
             MyPage
           </Link>
         </nav>
