@@ -8,6 +8,8 @@ import { PatchMyInfoApiRequest } from "@/type/GiveMemberType";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import DeleteMemberApi from "@/api/member/DeleteMemberApi";
+import { useRouter } from "next/navigation";
 
 enum EditStatus {
   GOOD = "/good.svg",
@@ -17,8 +19,10 @@ enum EditStatus {
 
 export default function MyPage() {
   const [member, setMember] = useState<MemberDetailSelfType | undefined>();
-  const { register, handleSubmit, setValue, watch } = useForm<PatchMyInfoApiRequest>();
+  const { register, handleSubmit, setValue, watch } =
+    useForm<PatchMyInfoApiRequest>();
   const [editStatus, setEditStatus] = useState<EditStatus>(EditStatus.GOOD);
+  const router = useRouter();
 
   useEffect(() => {
     GetMyInfoApi()
@@ -50,7 +54,6 @@ export default function MyPage() {
 
   const onSubmit = (dto: PatchMyInfoApiRequest) => {
     if (!dto) return;
-
     PatchMemberApi(dto)
       .then(() => {
         setValue("job", dto.job);
@@ -71,10 +74,19 @@ export default function MyPage() {
       });
   };
 
+  const deleteMember = () => {
+    if (!confirm("정말로 탈퇴하시겠습니까?")) return;
+    DeleteMemberApi().then(() => {
+      router.push("/");
+    });
+  };
+
   return (
     <div className="flex flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-gray-700 to-black">
       {!member ? (
-        <div className="text-xl font-bold text-gray-500">데이터가 없습니다.</div>
+        <div className="text-xl font-bold text-gray-500">
+          데이터가 없습니다.
+        </div>
       ) : (
         <div className="flex flex-col justify-center w-full max-w-4xl bg-gray-800 p-6 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -145,8 +157,12 @@ export default function MyPage() {
               <table className="w-full border-collapse text-white text-left text-sm">
                 <thead>
                   <tr className="bg-gray-700 text-gray-200">
-                    <th className="px-4 py-3 border border-gray-600 rounded-tl-lg">Language</th>
-                    <th className="px-4 py-3 border border-gray-600 rounded-tr-lg">Codes</th>
+                    <th className="px-4 py-3 border border-gray-600 rounded-tl-lg">
+                      Language
+                    </th>
+                    <th className="px-4 py-3 border border-gray-600 rounded-tr-lg">
+                      Codes
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -156,7 +172,9 @@ export default function MyPage() {
                         <strong>{lang.language}</strong>
                       </td>
                       <td className="px-4 py-3 border border-gray-600">
-                        <p className="text-gray-400">{lang.codes.toLocaleString()}</p>
+                        <p className="text-gray-400">
+                          {lang.codes.toLocaleString()}
+                        </p>
                       </td>
                     </tr>
                   ))}
@@ -171,6 +189,14 @@ export default function MyPage() {
               className="mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 transition duration-300 border border-gray-600"
             >
               저장하기
+            </button>
+            <button
+              onClick={deleteMember}
+              className="ml-3 mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
+             hover:bg-red-500 transition duration-300 transform hover:scale-105 
+             focus:outline-none focus:ring-2 focus:ring-red-400"
+            >
+              탈퇴하기
             </button>
           </form>
         </div>
