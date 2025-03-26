@@ -10,8 +10,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import DeleteMemberApi from "@/api/member/DeleteMemberApi";
 import { useRouter } from "next/navigation";
-import Modal from "@/config/modal/defaultModal";
-import { ModalProps } from "@/config/modal/modalType";
+import DefaultModal, { ModalProps } from "@/config/modal/defaultModal";
 
 enum EditStatus {
   GOOD = "/good.svg",
@@ -26,19 +25,12 @@ export default function MyPage() {
   const [editStatus, setEditStatus] = useState<EditStatus>(EditStatus.GOOD);
   const router = useRouter();
 
-  const [modalData, setModalData] = useState<ModalProps>({
+  const [defaultModalData, setDefaultModalData] = useState<ModalProps>({
     title: "",
     sub: "",
     submitText: "",
     isOpen: false
   });
-
-  const modalCloser = () => {
-    setModalData((prev: ModalProps) => ({
-      ...prev,
-      isOpen: false
-    })) 
-  }
 
   useEffect(() => {
     GetMyInfoApi()
@@ -90,32 +82,45 @@ export default function MyPage() {
       });
   };
 
+  const deleteMemberForModal = () => {
+    setDefaultModalData({
+      title: "탈퇴",
+      sub: "사용자 탈퇴를 계속 하시겠습니까?",
+      submitText: "확인",
+      isOpen: true,
+    })
+  }
   const deleteMember = () => {
-    if (!confirm("정말로 탈퇴하시겠습니까?")) return;
     DeleteMemberApi()
     .then(() => {
       router.push("/");
     })
     .catch(() => {
-      setModalData({
-        title: "탈퇴 실패",
-        sub: "사용자 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요",
-        submitText: "확인",
-        isOpen: true,
-      })
+      setEditStatus(EditStatus.ERR);
     })
   };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-gray-700 to-black">
-      <Modal
-        title={modalData.title}
-        sub={modalData.sub}
-        submitText={modalData.submitText}
-        isOpen={modalData.isOpen}
+      <DefaultModal
+        title={defaultModalData.title}
+        sub={defaultModalData.sub}
+        submitText={defaultModalData.submitText}
+        isOpen={defaultModalData.isOpen}
 
-        onClose={modalCloser}
-        onOkClose={modalCloser}
+        onClose={() => {
+          setDefaultModalData((prev: ModalProps) => ({
+            ...prev,
+            isOpen: false
+          }));
+        }}
+        onOkClose={() => {
+          setDefaultModalData((prev: ModalProps) => ({
+            ...prev,
+            isOpen: false
+          }));
+          deleteMember();
+        }}
       />
       {!member ? (
         <div className="text-xl font-bold text-gray-500">
@@ -227,7 +232,7 @@ export default function MyPage() {
               저장하기
             </button>
             <button
-              onClick={deleteMember}
+              onClick={deleteMemberForModal}
               className="ml-3 mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
              hover:bg-red-500 transition duration-300 transform hover:scale-105 
              focus:outline-none focus:ring-red-400"

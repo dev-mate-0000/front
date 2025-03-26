@@ -9,6 +9,13 @@ type ModalPropsPrivate = {
   onOkClose: () => void;
 }
 
+export type ModalProps = {
+  title: string;
+  sub: string;
+  submitText: string;
+  isOpen: boolean;
+}
+
 export default function Modal({
   title,
   sub,
@@ -44,9 +51,9 @@ export default function Modal({
       <div className="bg-gray-900 p-6 rounded-lg shadow-2xl relative w-96 text-white border border-gray-700">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-white hover:text-white transition-all"
+          className="absolute top-3 right-3 text-gray-400 hover:text-white transition-all"
         >
-          Χ
+          ✖
         </button>
 
         <h2 className="text-xl font-bold">{title}</h2>

@@ -1,8 +1,7 @@
 "use client";
 
 import getLoginGithubUrl from "@/config/getLoginUrl";
-import Modal from "@/config/modal/defaultModal";
-import { ModalProps } from "@/config/modal/modalType";
+import DefaultModal, { ModalProps } from "@/config/modal/defaultModal";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -45,7 +44,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-gray-700 to-black">
-      <Modal 
+      <DefaultModal 
         isOpen={modalData.isOpen}
         submitText={modalData.submitText}
         title={modalData.title} 
