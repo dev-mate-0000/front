@@ -1,9 +1,8 @@
 "use client";
 
+import LoadingUnit from "@/config/LoadingUnit";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import LoginPage from "@/config/LoginPage";
-
 export default function Login() {
   const router = useRouter();
 
@@ -16,7 +15,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen text-white flex flex-col items-center justify-center p-8">
-      {LoginPage()}
+      {LoadingUnit("Login")}
     </div>
   );
 }

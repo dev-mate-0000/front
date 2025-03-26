@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import DeleteMemberApi from "@/api/member/DeleteMemberApi";
 import { useRouter } from "next/navigation";
+import Modal from "@/config/modal/defaultModal";
+import { ModalProps } from "@/config/modal/modalType";
 
 enum EditStatus {
   GOOD = "/good.svg",
@@ -23,6 +25,20 @@ export default function MyPage() {
     useForm<PatchMyInfoApiRequest>();
   const [editStatus, setEditStatus] = useState<EditStatus>(EditStatus.GOOD);
   const router = useRouter();
+
+  const [modalData, setModalData] = useState<ModalProps>({
+    title: "",
+    sub: "",
+    submitText: "",
+    isOpen: false
+  });
+
+  const modalCloser = () => {
+    setModalData((prev: ModalProps) => ({
+      ...prev,
+      isOpen: false
+    })) 
+  }
 
   useEffect(() => {
     GetMyInfoApi()
@@ -59,7 +75,7 @@ export default function MyPage() {
         setValue("job", dto.job);
         setValue("bio", dto.bio);
         setValue("status", dto.status);
-        setMember((prev) => {
+        setMember((prev: MemberDetailSelfType | undefined) => {
           if (!prev) return undefined;
           return {
             ...prev,
@@ -76,13 +92,31 @@ export default function MyPage() {
 
   const deleteMember = () => {
     if (!confirm("정말로 탈퇴하시겠습니까?")) return;
-    DeleteMemberApi().then(() => {
+    DeleteMemberApi()
+    .then(() => {
       router.push("/");
-    });
+    })
+    .catch(() => {
+      setModalData({
+        title: "탈퇴 실패",
+        sub: "사용자 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요",
+        submitText: "확인",
+        isOpen: true,
+      })
+    })
   };
 
   return (
     <div className="flex flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-gray-700 to-black">
+      <Modal
+        title={modalData.title}
+        sub={modalData.sub}
+        submitText={modalData.submitText}
+        isOpen={modalData.isOpen}
+
+        onClose={modalCloser}
+        onOkClose={modalCloser}
+      />
       {!member ? (
         <div className="text-xl font-bold text-gray-500">
           데이터가 없습니다.
@@ -92,7 +126,7 @@ export default function MyPage() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex justify-between items-center">
               <select
-                className="bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 w-48"
+                className="bg-gray-700 text-white px-4 py-1 rounded-lg border border-gray-600 w-48"
                 {...register("status")}
                 defaultValue={member?.status}
               >
@@ -130,15 +164,15 @@ export default function MyPage() {
 
             <textarea
               {...register("bio")}
-              className="mt-5 text-white text-lg font-semibold bg-transparent border-none focus:outline-none w-full p-4 rounded-lg resize-none h-32"
+              className="mt-5 text-white text-2xl font-semibold bg-transparent border-none focus:outline-none w-full p-4 rounded-lg resize-none h-32"
               placeholder="자기소개를 입력해주세요."
               rows={4}
             />
 
             <div className="flex justify-between items-center mt-4">
-              <h1 className="text-3xl font-bold">{member?.name}</h1>
+              <h1 className="text-2xl font-bold">{member?.name}</h1>
               <select
-                className="bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600"
+                className="bg-gray-700 text-white px-4 py-1 rounded-lg border border-gray-600"
                 {...register("job")}
                 defaultValue={member?.job || ""}
               >
@@ -167,7 +201,7 @@ export default function MyPage() {
                 </thead>
                 <tbody>
                   {member.languages.map((lang, index) => (
-                    <tr key={index} className="transition">
+                    <tr key={index} className="transition hover:bg-gray-700">
                       <td className="px-4 py-3 border border-gray-600">
                         <strong>{lang.language}</strong>
                       </td>
@@ -186,7 +220,9 @@ export default function MyPage() {
 
             <button
               type="submit"
-              className="mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600 transition duration-300 border border-gray-600"
+              className="ml-3 mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
+              transition duration-300 transform hover:scale-105 
+              focus:outline-none"
             >
               저장하기
             </button>
@@ -194,7 +230,7 @@ export default function MyPage() {
               onClick={deleteMember}
               className="ml-3 mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
              hover:bg-red-500 transition duration-300 transform hover:scale-105 
-             focus:outline-none focus:ring-2 focus:ring-red-400"
+             focus:outline-none focus:ring-red-400"
             >
               탈퇴하기
             </button>

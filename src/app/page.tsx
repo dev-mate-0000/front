@@ -1,15 +1,59 @@
 "use client";
 
-import { LoginGithub } from "@/config/GithubLogin";
-import { useEffect } from "react";
+import getLoginGithubUrl from "@/config/getLoginUrl";
+import Modal from "@/config/modal/defaultModal";
+import { ModalProps } from "@/config/modal/modalType";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [loginUrl, setLoginUrl] = useState("");
+
+  const [modalData, setModalData] = useState<ModalProps>({
+      title: "로그인",
+      sub: "원할한 서비스 이용을 위해 로그인 하시겠습니까?",
+      submitText: "로그인",
+      isOpen: false
+    });
+  
+    const modalCloser = () => {
+      setModalData((prev: ModalProps) => ({
+        ...prev,
+        isOpen: false
+      }))
+    }
+
+    const modalOkCloser = () => {
+      setModalData((prev: ModalProps) => ({
+        ...prev,
+        isOpen: false
+      }))
+      window.location.href = loginUrl
+    }
+
   useEffect(() => {
-    LoginGithub();
+    getLoginGithubUrl()
+    .then(data => {
+      if(data) {
+        setModalData(prev => ({
+          ...prev,
+          isOpen: true
+        }))
+        setLoginUrl(data);
+      }
+    })
   }, []);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen text-white bg-gradient-to-b from-gray-700 to-black">
+      <Modal 
+        isOpen={modalData.isOpen}
+        submitText={modalData.submitText}
+        title={modalData.title} 
+        sub={modalData.sub}
+        
+        onClose={modalCloser}
+        onOkClose={modalOkCloser}
+      />
       <h1 className="text-6xl font-extrabold relative text-shadow-lg mb-6 tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-500 animate-fade-in">
         DEMEET
       </h1>

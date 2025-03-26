@@ -47,7 +47,7 @@ export default function MemberPage() {
 
           {/* Bio Section */}
           <textarea
-            className={`mt-5 text-white text-lg font-semibold bg-transparent border-none focus:outline-none w-full p-4 rounded-lg resize-none h-32 ${!member?.bio ? "opacity-70" : ""}`}
+            className={`mt-5 text-white text-2xl font-semibold bg-transparent border-none focus:outline-none w-full p-4 rounded-lg resize-none h-32 ${!member?.bio ? "opacity-70" : ""}`}
             value={member?.bio || ""}
             readOnly
             placeholder="소개가 없습니다."
@@ -56,8 +56,8 @@ export default function MemberPage() {
 
           {/* Member Name and Job Section */}
           <div className="flex justify-between items-center mt-4">
-            <h1 className="text-3xl font-extrabold">{member?.name}</h1>
-            <span className="text-2xl opacity-60">
+            <h1 className="text-2xl font-extrabold">{member?.name}</h1>
+            <span className="text-1xl opacity-60">
               {member?.job || "Unknown Job"}
             </span>
           </div>
