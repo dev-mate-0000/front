@@ -225,8 +225,8 @@ export default function MyPage() {
 
             <button
               type="submit"
-              className="ml-3 mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
-              transition duration-300 transform hover:scale-105 
+              className="mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
+              transition duration-300 transform hover:scale-105 hover:bg-blue-900
               focus:outline-none"
             >
               저장하기

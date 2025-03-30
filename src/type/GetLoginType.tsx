@@ -1,3 +1,3 @@
-export type GetLoginUrlType = {
+export type LoginUrlType = {
   url: string;
 };

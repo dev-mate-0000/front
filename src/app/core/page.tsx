@@ -3,40 +3,19 @@
 import Link from "next/link";
 import GetMembersSuggestApi from "@/api/suggest/GetMembersSuggestApi";
 import Image from "next/image";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { MemberDetailType } from "@/type/GetMemberType";
 import { JOBTYPE } from "@/type/MemberEnum";
 
 export default function Core() {
   const [members, setMembers] = useState<MemberDetailType[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-
-  const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    GetMembersSuggestApi(page).then((data) => {
-      setMembers((prevMembers) => [...prevMembers, ...data]);
-      setLoading(false);
-      setHasMore(data.length > 0);
+    GetMembersSuggestApi()
+    .then((data) => {
+      setMembers(data);
     });
-  }, [page]);
-
-  const lastElementRef = (node: HTMLElement | null) => {
-    if (loading || !node) return;
-
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    });
-
-    if (node) observer.current.observe(node);
-  };
+  }, []);
 
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-8 text-white bg-gradient-to-b from-gray-700 to-black ${members.length > 0 ? 'pt-30' : ''}`}>
@@ -45,11 +24,10 @@ export default function Core() {
           데이터가 없습니다.
         </div>
       ) : (
-        members.map((member, index) => (
+        members.map((member) => (
           <div
             key={member.id}
             className="w-full max-w-6xl flex justify-center space-x-8 overflow-x-auto m-5 transform transition-all duration-300 ease-out hover:scale-105"
-            ref={members.length === index + 1 ? lastElementRef : null}
           >
             <Link
               href={`/member-page/${member?.id}`}
@@ -102,7 +80,6 @@ export default function Core() {
           </div>
         ))
       )}
-      {!hasMore && <p className="opacity-60">No more items</p>}
     </div>
   );
 }
