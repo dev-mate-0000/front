@@ -231,6 +231,7 @@ export default function MemberPage() {
                           day: "2-digit",
                           hour: "2-digit",
                           minute: "2-digit",
+                          timeZone: "Asia/Seoul",
                         }).format(updatedAt)}
                       </p>
                       {isEdited && (
