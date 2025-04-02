@@ -168,14 +168,14 @@ export default function MemberPage() {
               <div className="flex space-x-4">
                 <button
                   type="submit"
-                  className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-105 hover:bg-blue-900 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform focus:outline-none"
+                  className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-107 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform focus:outline-none"
                 >
                   Edit
                 </button>
 
                 <button
                   type="button"
-                  className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-105 hover:bg-red-500 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform focus:outline-none"
+                  className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-107 hover:bg-red-500 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform focus:outline-none"
                   onClick={() => commentDeleteHandler(selectedComment)}
                 >
                   Delete
@@ -183,7 +183,7 @@ export default function MemberPage() {
 
                 <button
                   type="submit"
-                  className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-105 hover:bg-gray-600 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform focus:outline-none"
+                  className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-107 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform focus:outline-none"
                   onClick={() => {
                     setValue("review", "");
                     setSelectedComment("");
@@ -196,7 +196,7 @@ export default function MemberPage() {
               // 기본 "댓글 작성" 버튼만 표시
               <button
                 type="submit"
-                className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-102 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform hover:bg-blue-900 focus:outline-none"
+                className="mb-4 px-3 py-2 w-full bg-gray-700 hover:scale-102 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600 transform hover:bg-blue-500 focus:outline-none"
               >
                 Submit
               </button>

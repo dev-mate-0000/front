@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+body{
+  -ms-overflow-style: none;
+  }
+  
+ ::-webkit-scrollbar {
+   display: none;
+ }
+
+
 * {
   user-select: none;
   -webkit-user-drag: none;

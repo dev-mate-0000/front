@@ -11,12 +11,9 @@ import { useForm } from "react-hook-form";
 import DeleteMemberApi from "@/api/member/DeleteMemberApi";
 import { useRouter } from "next/navigation";
 import DefaultModal, { ModalProps } from "@/config/modal/defaultModal";
+import { EditStatus, StatusIcon } from "@/config/statusIcon";
 
-enum EditStatus {
-  GOOD = "/good.svg",
-  EDIT = "/edit.svg",
-  ERR = "/err.svg",
-}
+
 
 export default function MyPage() {
   const [member, setMember] = useState<MemberDetailSelfType | undefined>();
@@ -73,6 +70,7 @@ export default function MyPage() {
             ...prev,
             job: dto.job,
             bio: dto.bio,
+            status: dto.status
           };
         });
         setEditStatus(EditStatus.GOOD);
@@ -157,13 +155,7 @@ export default function MyPage() {
                     }
                   }}
                 />
-                <Image
-                  className="cursor-pointer hover:opacity-80"
-                  src={editStatus}
-                  alt="Status Logo"
-                  width={32}
-                  height={32}
-                />
+                <StatusIcon status={editStatus} />
               </div>
             </div>
 
@@ -227,8 +219,7 @@ export default function MyPage() {
               <button
                 type="submit"
                 className="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
-                transition duration-300 transform hover:scale-105 hover:bg-blue-900
-                focus:outline-none"
+                transition duration-300 transform hover:scale-107 focus:outline-none hover:bg-blue-500"
               >
                 저장하기
               </button>
@@ -236,8 +227,7 @@ export default function MyPage() {
               <button
                 onClick={() => router.push(`member-page/${member.id}`)}
                 className="px-6 py-3 ml-3 mr-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
-                transition duration-300 transform hover:scale-105 hover:bg-gray-600
-                focus:outline-none"
+                transition duration-300 transform hover:scale-107 focus:outline-none"
               >
                 공유 페이지로 이동
               </button>
@@ -245,8 +235,7 @@ export default function MyPage() {
               <button
                 onClick={deleteMemberForModal}
                 className="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
-              hover:bg-red-500 transition duration-300 transform hover:scale-105 
-              focus:outline-none focus:ring-red-400"
+                transition duration-300 transform hover:scale-107 focus:outline-none hover:bg-red-500"
               >
                 탈퇴하기
               </button>
