@@ -12,9 +12,9 @@ export default function Core() {
 
   useEffect(() => {
     GetMembersSuggestApi()
-    .then((data) => {
-      setMembers(data);
-    });
+      .then((data) => {
+        setMembers(data);
+      });
   }, []);
 
   return (
@@ -33,7 +33,7 @@ export default function Core() {
               href={`/member-page/${member?.id}`}
               className="flex-none w-full max-w-3xl p-8 bg-gray-800 rounded-xl shadow-lg"
             >
-              <div className="flex items-center justify-center space-x-4">
+              <div className="flex items-center justify-start space-x-4">
                 <Image
                   className="hover:opacity-80 cursor-pointer mb-3"
                   src="/github-mark-white.svg"
@@ -48,7 +48,7 @@ export default function Core() {
                     }
                   }}
                 />
-                <h2 className="text-4xl font-extrabold text-center">
+                <h2 className="text-4xl font-extrabold text-center w-full">
                   {member?.name.length > 15
                     ? `${member?.name.slice(0, 15)}...`
                     : member?.name}

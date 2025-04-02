@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "DEMEET",
-  description: "개발자를 쉽게 만나세요.",
+  description: "여러 개발자와 함께 소통을 함께해요.",
 };
 
 export default function RootLayout({
