@@ -1,9 +1,14 @@
 export type CommentType = {
   id: string;
   review: string;
-  editable: boolean;
+
+  createdAt: Date;
+  updatedAt: Date;
+
   reviewerInfo: CommentMemberInfo;
   memberInfo: CommentMemberInfo;
+  
+  editable: boolean;
 };
 
 type CommentMemberInfo = {

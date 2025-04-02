@@ -34,15 +34,15 @@ export default function MyPage() {
 
   useEffect(() => {
     GetMyInfoApi()
-      .then((data) => {
-        setValue("job", data.job);
-        setValue("bio", data.bio);
-        setValue("status", data.status);
-        setMember(data);
-      })
-      .catch(() => {
-        setEditStatus(EditStatus.ERR);
-      });
+    .then((data) => {
+      setValue("job", data.job);
+      setValue("bio", data.bio);
+      setValue("status", data.status);
+      setMember(data);
+    })
+    .catch(() => {
+      setEditStatus(EditStatus.ERR);
+    });
   }, []);
 
   useEffect(() => {
@@ -223,22 +223,34 @@ export default function MyPage() {
               <p className="text-gray-400">Unknown</p>
             )}
 
-            <button
-              type="submit"
-              className="mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
-              transition duration-300 transform hover:scale-105 hover:bg-blue-900
-              focus:outline-none"
-            >
-              저장하기
-            </button>
-            <button
-              onClick={deleteMemberForModal}
-              className="ml-3 mt-6 px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
-             hover:bg-red-500 transition duration-300 transform hover:scale-105 
-             focus:outline-none focus:ring-red-400"
-            >
-              탈퇴하기
-            </button>
+            <div className = "mt-6">
+              <button
+                type="submit"
+                className="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
+                transition duration-300 transform hover:scale-105 hover:bg-blue-900
+                focus:outline-none"
+              >
+                저장하기
+              </button>
+
+              <button
+                onClick={() => router.push(`member-page/${member.id}`)}
+                className="px-6 py-3 ml-3 mr-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
+                transition duration-300 transform hover:scale-105 hover:bg-gray-600
+                focus:outline-none"
+              >
+                공유 페이지로 이동
+              </button>
+
+              <button
+                onClick={deleteMemberForModal}
+                className="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
+              hover:bg-red-500 transition duration-300 transform hover:scale-105 
+              focus:outline-none focus:ring-red-400"
+              >
+                탈퇴하기
+              </button>
+            </div>
           </form>
         </div>
       )}
