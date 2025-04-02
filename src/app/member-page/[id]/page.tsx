@@ -49,8 +49,8 @@ export default function MemberPage() {
 
     if (!selectedComment) {
       PostCommentByMemberId(memberId, dto).then(() => {
-        getComment(memberId); // 댓글을 작성한 후 댓글 목록을 갱신
-        setValue("review", ""); // 댓글 작성 후 입력 필드 초기화
+        getComment(memberId);
+        setValue("review", "");
       });
       return;
     }

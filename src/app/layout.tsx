@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./header";
 import ScrollToTopButton from "@/config/scrollToTopButton";
+import AlertModal from "@/config/modal/alertModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Header />
         {children}
         <ScrollToTopButton />
+        <AlertModal />
       </body>
     </html>
   );

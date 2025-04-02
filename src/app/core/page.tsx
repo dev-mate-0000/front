@@ -12,13 +12,15 @@ export default function Core() {
 
   useEffect(() => {
     GetMembersSuggestApi()
-      .then((data) => {
-        setMembers(data);
-      });
+    .then((data) => {
+      setMembers(data);
+    })
   }, []);
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-8 text-white bg-gradient-to-b from-gray-700 to-black ${members.length > 0 ? 'pt-30' : ''}`}>
+    <div
+      className={`min-h-screen flex flex-col items-center justify-center p-8 text-white bg-gradient-to-b from-gray-700 to-black ${members.length > 0 ? "pt-30" : ""}`}
+    >
       {members.length === 0 ? (
         <div className="text-xl font-bold text-gray-500">
           데이터가 없습니다.

@@ -12,10 +12,11 @@ import DeleteMemberApi from "@/api/member/DeleteMemberApi";
 import { useRouter } from "next/navigation";
 import DefaultModal, { ModalProps } from "@/config/modal/defaultModal";
 import { EditStatus, StatusIcon } from "@/config/statusIcon";
-
-
+import { STATUS, useAlertStore } from "@/config/modal/alertModal";
 
 export default function MyPage() {
+  const { open } = useAlertStore();
+
   const [member, setMember] = useState<MemberDetailSelfType | undefined>();
   const { register, handleSubmit, setValue, watch } =
     useForm<PatchMyInfoApiRequest>();
@@ -38,7 +39,7 @@ export default function MyPage() {
       setMember(data);
     })
     .catch(() => {
-      setEditStatus(EditStatus.ERR);
+      open("데이터를 찾을 수 없습니다.", STATUS.error);
     });
   }, []);
 
@@ -73,9 +74,11 @@ export default function MyPage() {
             status: dto.status
           };
         });
+        open("수정에 성공했습니다.", STATUS.success);
         setEditStatus(EditStatus.GOOD);
       })
       .catch(() => {
+        open("잠시 후 다시 시도해주세요.", STATUS.error);
         setEditStatus(EditStatus.ERR);
       });
   };
@@ -83,7 +86,7 @@ export default function MyPage() {
   const deleteMemberForModal = () => {
     setDefaultModalData({
       title: "탈퇴",
-      sub: "사용자 탈퇴를 계속 하시겠습니까?",
+      sub: "탈퇴를 진행 하시겠습니까?",
       submitText: "확인",
       isOpen: true,
     })
@@ -225,6 +228,7 @@ export default function MyPage() {
               </button>
 
               <button
+                type="button"
                 onClick={() => router.push(`member-page/${member.id}`)}
                 className="px-6 py-3 ml-3 mr-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
                 transition duration-300 transform hover:scale-107 focus:outline-none"
@@ -233,6 +237,7 @@ export default function MyPage() {
               </button>
 
               <button
+                type="button"
                 onClick={deleteMemberForModal}
                 className="px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg shadow-md transition duration-300 border border-gray-600
                 transition duration-300 transform hover:scale-107 focus:outline-none hover:bg-red-500"

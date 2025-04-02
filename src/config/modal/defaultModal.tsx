@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import { useEffect } from "react";
 
 type ModalPropsPrivate = {
@@ -49,19 +50,14 @@ export default function Modal({
   return (
     <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50 animate-fade-in">
       <div className="bg-gray-900 p-6 rounded-lg shadow-2xl relative w-96 text-white border border-gray-700">
-        <button
-          onClick={onClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-white transition-all"
-        >
-          ✖
-        </button>
+        <X onClick={onClose} className="w-5 h-5 absolute top-3 right-3 text-gray-400 hover:text-white transition-all" />
 
         <h2 className="text-xl font-bold">{title}</h2>
         <p className="mt-2 text-gray-300">{sub}</p>
 
         <button
           onClick={onOkClose}
-          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-500 transition-all text-white rounded-md w-full"
+          className="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 transition-all text-white rounded-md w-full"
         >
           {submitText}
         </button>
