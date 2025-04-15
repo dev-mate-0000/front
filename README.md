@@ -1,36 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## 팀원 매칭 플랫폼
 
-## Getting Started
+이 프로젝트는 개발자들이 팀원을 구하기 어려운 문제를 해결하기 위한 플랫폼입니다. GitHub 소셜 로그인 기능을 통해 사용자가 빠르게 가입할 수 있으며, 사용자가 작성하는 언어를 자동으로 추적해 팀원 매칭에 도움을 줍니다. 또한, 사용자 간 댓글을 통해 피드백 및 의견을 나눌 수 있습니다.
 
-First, run the development server:
+## 기능
+- **GitHub 소셜 로그인**: 빠르고 안전한 로그인 방법
+- **언어 추적**: 사용자가 자주 사용하는 개발 언어를 분석하여 매칭에 활용
+- **댓글 기능**: 사용자 간 의견 교환을 위한 댓글 달기 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 사용 방법
+- GitHub 로그인 후, 자신이 사용하는 언어를 기반으로 팀원을 매칭할 수 있습니다.
+- 매칭된 팀원과 댓글을 통해 의견을 나누고 팀 프로젝트를 진행할 수 있습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+https://demeet00.site/
