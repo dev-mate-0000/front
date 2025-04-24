@@ -5,11 +5,12 @@ import GetCommentByMemberId from "@/api/comment/GetCommentByMemberIdApi";
 import PatchCommentByCommentId from "@/api/comment/PatchCommentByCommentIdApi";
 import PostCommentByMemberId from "@/api/comment/PostCommentByMemberIdApi";
 import GetMemerDetailApi from "@/api/suggest/GetMemerDetailApi";
+import UnauthorizedError from "@/config/UnauthorizedError";
 import { CommentType, PostCommentType } from "@/type/GetCommentType";
 import { MemberDetailType } from "@/type/GetMemberType";
 import { JOBTYPE } from "@/type/MemberEnum";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -20,19 +21,32 @@ export default function MemberPage() {
   const [selectedComment, setSelectedComment] = useState<string>("");
 
   const { register, handleSubmit, setValue } = useForm<PostCommentType>();
+  const router = useRouter();
 
   useEffect(() => {
     if (!id) return;
     const memberId = Array.isArray(id) ? id[0] : id;
-    GetMemerDetailApi(memberId).then((data) => {
-      setMember(data);
-    });
+    GetMemerDetailApi(memberId)
+      .then((data) => {
+        setMember(data);
+      })
+      .catch((error) => {
+        if (error instanceof UnauthorizedError) {
+          router.push("/login");
+        }
+      });
   }, [id]);
 
   const getComment = (memberId: string) => {
-    GetCommentByMemberId(memberId).then((data) => {
-      setComments(data);
-    });
+    GetCommentByMemberId(memberId)
+      .then((data) => {
+        setComments(data);
+      })
+      .catch((error) => {
+        if (error instanceof UnauthorizedError) {
+          router.push("/login");
+        }
+      });
   };
 
   useEffect(() => {
@@ -48,28 +62,46 @@ export default function MemberPage() {
     const memberId = member.id;
 
     if (!selectedComment) {
-      PostCommentByMemberId(memberId, dto).then(() => {
-        getComment(memberId);
-        setValue("review", "");
-      });
+      PostCommentByMemberId(memberId, dto)
+        .then(() => {
+          getComment(memberId);
+          setValue("review", "");
+        })
+        .catch((error) => {
+          if (error instanceof UnauthorizedError) {
+            router.push("/login");
+          }
+        });
       return;
     }
-    PatchCommentByCommentId(selectedComment, dto).then(() => {
-      getComment(memberId);
-      setValue("review", "");
-      setSelectedComment("");
-    });
+    PatchCommentByCommentId(selectedComment, dto)
+      .then(() => {
+        getComment(memberId);
+        setValue("review", "");
+        setSelectedComment("");
+      })
+      .catch((error) => {
+        if (error instanceof UnauthorizedError) {
+          router.push("/login");
+        }
+      });
   };
 
   const commentDeleteHandler = (commentId: string) => {
     if (!member) return;
     const memberId = member.id;
 
-    DeleteCommentApi(commentId).then(() => {
-      getComment(memberId);
-      setValue("review", "");
-      setSelectedComment("");
-    });
+    DeleteCommentApi(commentId)
+      .then(() => {
+        getComment(memberId);
+        setValue("review", "");
+        setSelectedComment("");
+      })
+      .catch((error) => {
+        if (error instanceof UnauthorizedError) {
+          router.push("/login");
+        }
+      });
   };
 
   return (

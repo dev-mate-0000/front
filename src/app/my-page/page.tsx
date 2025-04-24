@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import DefaultModal, { ModalProps } from "@/config/modal/defaultModal";
 import { EditStatus, StatusIcon } from "@/config/statusIcon";
 import { STATUS, useAlertStore } from "@/config/modal/alertModal";
+import UnauthorizedError from "@/config/UnauthorizedError";
 
 export default function MyPage() {
   const { open } = useAlertStore();
@@ -38,7 +39,10 @@ export default function MyPage() {
       setValue("status", data.status);
       setMember(data);
     })
-    .catch(() => {
+    .catch((error) => {
+      if(error instanceof UnauthorizedError) {
+        router.push("/login");
+      }
       open("데이터를 찾을 수 없습니다.", STATUS.error);
     });
   }, []);
@@ -77,7 +81,10 @@ export default function MyPage() {
         open("수정에 성공했습니다.", STATUS.success);
         setEditStatus(EditStatus.GOOD);
       })
-      .catch(() => {
+      .catch((error) => {
+        if(error instanceof UnauthorizedError) {
+          router.push("/login");
+        }
         open("잠시 후 다시 시도해주세요.", STATUS.error);
         setEditStatus(EditStatus.ERR);
       });
@@ -96,7 +103,10 @@ export default function MyPage() {
     .then(() => {
       router.push("/");
     })
-    .catch(() => {
+    .catch((error) => {
+      if(error instanceof UnauthorizedError) {
+        router.push("/login");
+      }
       setEditStatus(EditStatus.ERR);
     })
   };

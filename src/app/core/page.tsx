@@ -6,14 +6,22 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MemberDetailType } from "@/type/GetMemberType";
 import { JOBTYPE } from "@/type/MemberEnum";
+import { useRouter } from 'next/navigation';
+import UnauthorizedError from "@/config/UnauthorizedError";
 
 export default function Core() {
   const [members, setMembers] = useState<MemberDetailType[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     GetMembersSuggestApi()
     .then((data) => {
       setMembers(data);
+    })
+    .catch((error) => {
+      if(error instanceof UnauthorizedError) {
+        router.push("/login");
+      }
     })
   }, []);
 
